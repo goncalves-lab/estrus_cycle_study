@@ -1,0 +1,11 @@
+// select the green channel, which has the best contrast
+	run("RGB Stack");
+	setSlice(2);
+// set threshold
+  	setAutoThreshold();
+   	getThreshold(min, max)
+   	setThreshold(0, max/1.4);
+// measure area and area fraction
+   	run("Set Measurements...", "area area_fraction limit display redirect=None decimal=3");
+   	run("Measure");
+   	selectWindow("Results");
