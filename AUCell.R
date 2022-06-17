@@ -78,6 +78,12 @@ for (i in seq(length(gs_mmu_data))){
   geneSets_final <- c(geneSets, geneSets_final)
 }
 
+loadRData <- function(fileName){
+  #loads an RData file, and returns it
+  load(fileName)
+  get(ls()[ls() != "fileName"])}
+
+
 estrus <- loadRData("/omics/odcf/analysis/OE0538_projects/DO-0002/mmus/estrus/analysis_II/seurat_objects/ut_combined.Rdata")
 decidua <- loadRData("/omics/groups/OE0433/internal/ivana/decidua/ut_combined_deci_merged_final.Rdata")
 decidua$estrus_phase <- "decidua"
@@ -88,7 +94,6 @@ Idents(ut_combined) <- ut_combined$level_2
 ut_combined_f <- subset(ut_combined, idents=c("F", "DeC"))
 
 counts_m <- as.matrix(ut_combined_f[["SCT"]]@counts)
-rownames(counts_m) <- toupper(rownames(counts_m))
 cells_rankings_m <- AUCell_buildRankings(counts_m, nCores=1, plotStats=TRUE)
 
 null_rank_final_m <- c()
